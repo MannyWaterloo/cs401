@@ -93,6 +93,18 @@
   clear: both;
 }
 
+#commentbox {
+    width: 50%;
+    height: 50px;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border-color: black;
+    border: 2px;
+    background: #cbcfd6;
+    border-radius: 5px 5px 5px 5px;
+}
+
 .reg_form_info {
   padding-top: 50px;
   padding-left: 50px;

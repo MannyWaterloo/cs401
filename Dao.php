@@ -12,18 +12,16 @@ class Dao {
     return $conn;
   }
   //not finished
-  public function saveComment ($name, $comment, $path) {
-  $this->log->LogInfo("Save comment [{$name}] [{$comment}]");
+  public function saveComment ($username, $comment) {
   $conn = $this->getConnection();
   $saveQuery =
-      "INSERT INTO comment
-      (name, comment, image_path)
+      "INSERT INTO ucomment
+      (user_username, comment_body)
       VALUES
-      (:name, :comment, :image_path)";
+      (:uname, :usercomment)";
   $q = $conn->prepare($saveQuery);
-  $q->bindParam(":name", $name);
-  $q->bindParam(":comment", $comment);
-  $q->bindParam(":image_path", $path);
+  $q->bindParam(":uname", $username);
+  $q->bindParam(":usercomment", $comment);
   $q->execute();
 }
 
@@ -41,12 +39,20 @@ public function addUser ($email, $username, $password) {
   $q->execute();
 }
 //get all comments
+// public function getComments()
+// 	{
+// 		$conn = $this->getConnection();
+// 		$stmt = $conn->prepare("SELECT user_username, comment_body, comment_date FROM comment order by comment_date desc");
+// 		$stmt->execute();
+// 		return $stmt->fetch();
+// 	}
+
 public function getComments()
 	{
 		$conn = $this->getConnection();
-		$stmt = $conn->prepare("SELECT * FROM comment");
+		$stmt = $conn->prepare("SELECT * FROM ucomment order by comment_date desc");
 		$stmt->execute();
-		return $stmt->fetch();
+		return $stmt->fetchAll();
 	}
 
 public function getUser($username)
