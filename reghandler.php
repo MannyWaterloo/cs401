@@ -69,7 +69,7 @@ if (preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,32}
   //echo("password must contain at least one number, one uppercase letter, and one lowercase
   //letter");
   $_SESSION['messages'][] = "Password must contain at least one number, one uppercase letter,
-  one lowercase letter, and must be 8-32 characters.";
+  one lowercase letter, one special character and must be 8-32 characters.";
 }
 
   //$dao = new Dao();
