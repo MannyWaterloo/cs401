@@ -10,31 +10,20 @@ unset($_SESSION['message']);
 <?php require_once "footer.php"; ?>
 
 <?php if (isset($_SESSION["registered"]) && !$_SESSION["registered"]) : ?>
-<!-- <div class="reg_form_info">
-  <p>
-    Username must be 1-32 character, letters and numbers only.
-  </p>
-  <p>
-    Must provide a valid email.
-  </p>
-  <p>
-    Password must be 8-32 character, and contain one uppercase, one lowercase,
-    one number, and one special character.
-  </p>
-</div> -->
+
 <?php endif;?>
 
 <div class="register">
 <form method="post" class="register" action="reghandler.php">
-  <label for="username"><b>Username</b></label>
-  <input type="text" name="username" value="<?php echo @$_SESSION['username']; ?>"><br>
-  <label for="email"><b>Email</b></label>
-  <input type="text" name="email" value="<?php echo @$_SESSION['email']; ?>"><br>
-  <label for="password"><b>Password</b></label>
+  <label for="username"><b>Username</b></label><br>
+  <input type="text" name="username" pattern="^[A-Za-z][A-Za-z0-9_]{1,32}$" title="username must be 2-32 characters letters and numbers only" value="<?php echo @$_SESSION['username']; ?>"><br>
+  <label for="email"><b>Email</b></label><br>
+  <input type="email" name="email" value="<?php echo @$_SESSION['email']; ?>"><br>
+  <label for="password"><b>Password</b></label><br>
   <input type="password" name="password" value=""><br>
-  <label for="confirm_password"><b>Confirm Password</b></label>
+  <label for="confirm_password"><b>Confirm Password</b></label><br>
   <input type="password" name="confirm_password" value=""><br>
-<input type="submit" value="Submit">
+<input type="submit" id="submit" value="Submit">
 </div>
 </form>
 

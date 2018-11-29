@@ -47,7 +47,7 @@ if (preg_match('/^[A-Za-z][A-Za-z0-9_]{1,32}$/', $username)){
     }
 } else {
   //echo ("$username is not valid, username must be 6-32 character, letters and numbers only");
-    $_SESSION['messages'][] = "$username is not valid, username must be 6-32 characters letters and numbers only";
+    $_SESSION['messages'][] = "$username is not valid, username must be 2-32 characters letters and numbers only";
 }
 
 // (?=.*\d) Atleast a digit
@@ -72,9 +72,12 @@ if (preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,32}
   one lowercase letter, one special character and must be 8-32 characters.";
 }
 
-  //$dao = new Dao();
+
   if($emailbool === true && $usernamebool === true &&  $passwordbool === true){
-    $dao->addUser($email, $username, $password);
+    $salt = 'supersaltysalt';
+    $saltedpassword = $password.$salt;
+    $hashedpassword = password_hash($saltedpassword, PASSWORD_BCRYPT);
+    $dao->addUser($email, $username, $hashedpassword);
     $dao->getUser($username);
     //echo("it worked");
     $_SESSION["registered"] = true;
@@ -83,8 +86,6 @@ if (preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,32}
     $_SESSION["registered"] = false;
     header('Location: register.php');
   }
-
-  //header('Location: index.php');
 //  exit;
 
 ?>

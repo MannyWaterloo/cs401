@@ -15,11 +15,18 @@ $_SESSION['presets']['email'] = $email;
 $_SESSION['presets']['password'] = $password;
 $_SESSION['presets']['userid'] = $userid;
 
-if ($dao->checkExists($username, $password)) {
-  $_SESSION["logged_in"] = true;
-  //$userid = getUserId($username);
-  header('Location: index.php');
-} else {
+$salt = 'supersaltysalt';
+$saltedpassword = $password.$salt;
+
+if($dao->checkUsername($username)){
+  $tempPassword = $dao->getPassword($username);
+  if(password_verify($saltedpassword, $tempPassword['password'])){
+    $_SESSION["logged_in"] = true;
+    header('Location: index.php');
+  }else{
+    header('Location: login.php');
+  }
+}else{
   header('Location: login.php');
 }
 

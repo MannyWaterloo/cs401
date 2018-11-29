@@ -72,6 +72,15 @@ public function getUser($username)
   		return $stmt->fetch();
   	}
 
+    public function getPassword($username)
+      {
+        $conn = $this->getConnection();
+        $stmt = $conn->prepare("SELECT password FROM user WHERE username = :uname");
+        $stmt->bindParam(":uname", $username);
+        $stmt->execute();
+        return $stmt->fetch();
+      }
+
 
   public function checkEmail($email)
   	{
